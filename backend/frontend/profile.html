@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Profile</h2>
+
+  <p id="welcome"></p>
+
+  <button id="logout">Logout</button>
+</div>
+
+<script>
+const name = localStorage.getItem("userName");
+const email = localStorage.getItem("userEmail");
+
+if (!email) {
+  window.location.href = "login.html";
+}
+
+document.getElementById("welcome").innerHTML =
+  `<strong>Welcome:</strong> ${name}<br><strong>Email:</strong> ${email}`;
+
+document.getElementById("logout").addEventListener("click", () => {
+  localStorage.clear();
+  window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>

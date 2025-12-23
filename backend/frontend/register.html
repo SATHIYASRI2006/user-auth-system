@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Register</h2>
+
+  <!-- MESSAGE -->
+  <p id="message"></p>
+
+  <form id="registerForm">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Register</button>
+  </form>
+
+  <p>Already have an account? <a href="login.html">Login</a></p>
+</div>
+
+<script>
+const form = document.getElementById("registerForm");
+const msg = document.getElementById("message");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  msg.textContent = "Registering...";
+  msg.className = "info";
+
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      msg.textContent = result.message;
+      msg.className = "success";
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1500);
+    } else {
+      msg.textContent = result.message;
+      msg.className = "error";
+    }
+
+  } catch {
+    msg.textContent = "Server not reachable";
+    msg.className = "error";
+  }
+});
+</script>
+
+</body>
+</html>

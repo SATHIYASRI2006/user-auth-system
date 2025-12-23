@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Login</h2>
+
+  <!-- MESSAGE -->
+  <p id="message"></p>
+
+  <form id="loginForm">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <p>Don't have an account? <a href="register.html">Register</a></p>
+</div>
+
+<script>
+const form = document.getElementById("loginForm");
+const msg = document.getElementById("message");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  msg.textContent = "Logging in...";
+  msg.className = "info";
+
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      msg.textContent = result.message;
+      msg.className = "success";
+
+      localStorage.setItem("userEmail", result.email);
+      localStorage.setItem("userName", result.name);
+
+      setTimeout(() => {
+        window.location.href = "profile.html";
+      }, 1500);
+    } else {
+      msg.textContent = result.message;
+      msg.className = "error";
+    }
+
+  } catch {
+    msg.textContent = "Cannot connect to server";
+    msg.className = "error";
+  }
+});
+</script>
+
+</body>
+</html>

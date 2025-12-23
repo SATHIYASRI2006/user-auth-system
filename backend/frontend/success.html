@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Success</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .container {
+      text-align: center;
+    }
+    h2 {
+      color: #44bd32;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="message">Success!</h2>
+    <p id="subMsg">Redirecting...</p>
+  </div>
+
+  <script>
+   const status = localStorage.getItem("status");
+const email = localStorage.getItem("userEmail");
+
+const message = document.getElementById("message");
+const subMsg = document.getElementById("subMsg");
+
+if(status === "register") {
+  message.textContent = "Registered Successfully!";
+  subMsg.textContent = "Redirecting to login...";
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 3000);
+} else if(status === "login" && email) {
+  message.textContent = "Logged in Successfully!";
+  subMsg.textContent = "Redirecting to your profile...";
+  setTimeout(() => {
+    window.location.href = "profile.html";
+  }, 3000);
+} else {
+  message.textContent = "No action detected!";
+  subMsg.textContent = "";
+}
+
+// Clear status
+localStorage.removeItem("status");
+
+  </script>
+</body>
+</html>
