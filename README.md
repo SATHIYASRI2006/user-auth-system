@@ -1,20 +1,43 @@
 # User Authentication System
 
-A simple user authentication system built using:
+## Description
+This is a simple User Authentication System built using Node.js, Express, and MongoDB. It allows users to register, log in, and securely store their credentials.
+
+## Technologies Used
 - Node.js
-- Express
+- Express.js
 - MongoDB
-- HTML, CSS, JavaScript
+- HTML
+- CSS
+- JavaScript
+- bcrypt
 
 ## Features
 - User Registration
 - User Login
-- Password Hashing with bcrypt
-- MongoDB Atlas integration
+- Password Hashing
+- MongoDB Atlas Integration
 
-## How to Run
-1. Install dependencies
-   npm install
-2. Create a `.env` file with MongoDB URI
-3. Run the server
-   npm start
+## Installation
+
+```bash
+npm install
+```
+
+## Running the Project
+
+```bash
+npm start
+```
+
+## Environment Variables
+
+Create a `.env` file and add your MongoDB connection string:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+```
+
+## Author
+
+Developed by the project contributors.
